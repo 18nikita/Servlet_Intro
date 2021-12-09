@@ -38,5 +38,16 @@ public class LoginServlet extends HttpServlet {
             out.println("<font color=red> Either User Name Or Password is Wrong </font> ");
             rd.include(req,resp);
         }
+        // UC3 : Validating name of the user
+        String nameValidate = "^[A-Z][a-z]{2,}";
+        if(userID.equals(user) && userID.matches(nameValidate) && password.equals(pwd)) {
+            req.setAttribute("user",user);
+            req.getRequestDispatcher("LoginSuccess.jsp").forward(req, resp);
+        } else {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out  = resp.getWriter();
+            out.println("<font color = red> Either username or password is wrong</font>");
+            rd.include(req, resp);
+        }
     }
 }
